@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 public class ListaLivrosFragment extends Fragment {
@@ -23,12 +24,26 @@ public class ListaLivrosFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.buttonNovo).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+            public void onClick(View v) {
+                novoLivro();
             }
-        });*/
+        });
+
+        view.findViewById(R.id.buttonAlterar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alteraLivro();
+            }
+        });
+    }
+
+    private void alteraLivro() {
+    }
+
+    private void novoLivro() {
+        NavController navController = NavHostFragment.findNavController(ListaLivrosFragment.this);
+        navController.navigate(R.id.action_novo_livro);
     }
 }
