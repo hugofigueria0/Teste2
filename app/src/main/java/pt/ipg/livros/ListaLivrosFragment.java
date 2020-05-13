@@ -40,6 +40,8 @@ public class ListaLivrosFragment extends Fragment {
     }
 
     private void alteraLivro() {
+        NavController navController = NavHostFragment.findNavController(ListaLivrosFragment.this);
+        navController.navigate(R.id.action_alterar_livro);
     }
 
     private void novoLivro() {

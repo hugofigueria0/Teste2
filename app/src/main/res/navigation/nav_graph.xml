@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_novo_livro"
             app:destination="@id/AdicionaLivroFragment" />
+        <action
+            android:id="@+id/action_alterar_livro"
+            app:destination="@id/alteraLivroFragment" />
     </fragment>
     <fragment
         android:id="@+id/AdicionaLivroFragment"
@@ -23,6 +26,15 @@
 
         <action
             android:id="@+id/action_NovoLivro_to_ListaLivros"
+            app:destination="@id/ListaLivrosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/alteraLivroFragment"
+        android:name="pt.ipg.livros.AlteraLivroFragment"
+        android:label="fragment_altera_livro"
+        tools:layout="@layout/fragment_altera_livro" >
+        <action
+            android:id="@+id/action_alteraLivroFragment_to_ListaLivrosFragment"
             app:destination="@id/ListaLivrosFragment" />
     </fragment>
 </navigation>
