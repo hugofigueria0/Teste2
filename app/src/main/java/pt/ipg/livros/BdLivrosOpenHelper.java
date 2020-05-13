@@ -30,7 +30,11 @@ public class BdLivrosOpenHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
+        BdTableCategorias tabelaCategorias = new BdTableCategorias(db);
+        tabelaCategorias.cria();
 
+        BdTableLivros tabelaLivros = new BdTableLivros(db);
+        tabelaLivros.cria();
     }
 
     /**
