@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class BdLivrosOpenHelper extends SQLiteOpenHelper {
-    private static final String NOME_BASE_DADOS = "livros.db";
+    public static final String NOME_BASE_DADOS = "livros.db";
     private static final int VERSAO_BASE_DADOS = 1;
 
     /**
@@ -18,7 +18,7 @@ public class BdLivrosOpenHelper extends SQLiteOpenHelper {
      *
      * @param context to use for locating paths to the the database
      */
-    public BdLivrosOpenHelper(@Nullable Context context, int version) {
+    public BdLivrosOpenHelper(@Nullable Context context) {
         super(context, NOME_BASE_DADOS, null, VERSAO_BASE_DADOS);
     }
 
