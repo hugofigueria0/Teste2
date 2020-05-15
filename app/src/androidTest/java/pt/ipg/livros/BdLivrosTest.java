@@ -38,4 +38,22 @@ public class BdLivrosTest {
     private Context getTargetContext() {
         return InstrumentationRegistry.getInstrumentation().getTargetContext();
     }
+
+    @Test
+    public void consegueInserirCategorias() {
+        Context appContext = getTargetContext();
+
+        BdLivrosOpenHelper openHelper = new BdLivrosOpenHelper(appContext);
+        SQLiteDatabase bdLivros = openHelper.getWritableDatabase();
+
+        BdTableCategorias tabelaCategorias = new BdTableCategorias(bdLivros);
+
+        Categoria categoria = new Categoria();
+        categoria.setDescricao("Ação");
+
+        long id = tabelaCategorias.insert(Converte.categoriaToContentValues(categoria));
+        assertNotEquals(-1, id);
+
+        bdLivros.close();
+    }
 }
