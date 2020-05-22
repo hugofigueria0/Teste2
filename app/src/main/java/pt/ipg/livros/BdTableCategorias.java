@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 public class BdTableCategorias implements BaseColumns {
-    private static final String NOME_TABELA = "categorias";
+    public static final String NOME_TABELA = "categorias";
 
     public static final String CAMPO_DESCRICAO = "descricao";
     public static final String[] TODOS_CAMPOS = {_ID, CAMPO_DESCRICAO};
