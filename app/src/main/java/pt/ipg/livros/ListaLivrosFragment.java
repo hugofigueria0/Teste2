@@ -30,7 +30,7 @@ public class ListaLivrosFragment extends Fragment {
         Context context = getContext();
 
         RecyclerView recyclerViewLivros = (RecyclerView) view.findViewById(R.id.recyclerViewLivros);
-        AdaptadorLivros adaptadorLivros = new AdaptadorLivros();
+        AdaptadorLivros adaptadorLivros = new AdaptadorLivros(context);
         recyclerViewLivros.setAdapter(adaptadorLivros);
         recyclerViewLivros.setLayoutManager(new LinearLayoutManager(context));
     }
