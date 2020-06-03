@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,7 +73,9 @@ class AdaptadorLivros extends RecyclerView.Adapter<AdaptadorLivros.ViewHolderLiv
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolderLivro holder, int position) {
-
+        cursor.moveToPosition(position);
+        Livro livro = Converte.cursorToLivro(cursor);
+        holder.setLivro(livro);
     }
 
     /**
@@ -90,9 +93,23 @@ class AdaptadorLivros extends RecyclerView.Adapter<AdaptadorLivros.ViewHolderLiv
     }
 
     public class ViewHolderLivro extends RecyclerView.ViewHolder {
+        private Livro livro = null;
+
+        private final TextView textViewTitulo;
+        private final TextView textViewCategoria;
 
         public ViewHolderLivro(@NonNull View itemView) {
             super(itemView);
+
+            textViewTitulo = (TextView)itemView.findViewById(R.id.textViewTitulo);
+            textViewCategoria = (TextView)itemView.findViewById(R.id.textViewCategoria);
+        }
+
+        public void setLivro(Livro livro) {
+            this.livro = livro;
+
+            textViewTitulo.setText(livro.getTitulo());
+            textViewCategoria.setText(String.valueOf(livro.getIdCategoria()));
         }
     }
 }
