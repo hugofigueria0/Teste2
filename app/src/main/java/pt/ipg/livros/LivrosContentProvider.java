@@ -153,7 +153,7 @@ public class LivrosContentProvider extends ContentProvider {
                 return new BdTableLivros(bd).query(projection, BdTableLivros._ID + "=?", new String[] { id }, null, null, sortOrder);
 
             default:
-                throw new UnsupportedOperationException("Uri inválida (QUERY): " + uri.getPath());
+                throw new UnsupportedOperationException("Endereço query inválido: " + uri.getPath());
         }
     }
 
@@ -224,7 +224,7 @@ public class LivrosContentProvider extends ContentProvider {
                 break;
 
             default:
-                throw new UnsupportedOperationException("Uri inválida (INSERT): " + uri.getPath());
+                throw new UnsupportedOperationException("Endereço insert inválido: " + uri.getPath());
         }
 
         if (id == -1) {
@@ -269,7 +269,7 @@ public class LivrosContentProvider extends ContentProvider {
                 return new BdTableLivros(bd).delete(BdTableLivros._ID + "=?", new String[] { id });
 
             default:
-                throw new UnsupportedOperationException("Uri inválida (DELETE): " + uri.getPath());
+                throw new UnsupportedOperationException("Endereço delete inválido: " + uri.getPath());
         }
     }
 
@@ -293,6 +293,19 @@ public class LivrosContentProvider extends ContentProvider {
      */
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        SQLiteDatabase bd = openHelper.getWritableDatabase();
+
+        String id = uri.getLastPathSegment();
+
+        switch (getUriMatcher().match(uri)) {
+            case URI_ID_CATEGORIA:
+                return new BdTableCategorias(bd).update(values, BdTableCategorias._ID + "=?", new String[] { id });
+
+            case URI_ID_LIVRO:
+                return new BdTableLivros(bd).update(values,BdTableLivros._ID + "=?", new String[] { id });
+
+            default:
+                throw new UnsupportedOperationException("Endereço de update inválido: " + uri.getPath());
+        }
     }
 }
