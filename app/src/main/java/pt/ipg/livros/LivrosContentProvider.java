@@ -15,16 +15,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class LivrosContentProvider extends ContentProvider {
-    public static final String AUTHORITY = "pt.ipg.livros";
-    public static final String CATEGORIAS = "categorias";
-    public static final String LIVROS = "livros";
+    private static final String AUTHORITY = "pt.ipg.livros";
+    private static final String CATEGORIAS = "categorias";
+    private static final String LIVROS = "livros";
 
-    public static final int URI_CATEGORIAS = 100;
-    public static final int URI_ID_CATEGORIA = 101;
-    public static final int URI_LIVROS = 200;
-    public static final int URI_ID_LIVRO = 201;
-    public static final String CURSOR_DIR = "vnd.android.cursor.dir/";
-    public static final String CURSOR_ITEM = "vnd.android.cursor.item/";
+    private static final Uri ENDERECO_BASE = Uri.parse("content://" + AUTHORITY);
+    public static final Uri ENDERECO_CATEGORIAS = Uri.withAppendedPath(ENDERECO_BASE, CATEGORIAS);
+    public static final Uri ENDERECO_LIVROS = Uri.withAppendedPath(ENDERECO_BASE, LIVROS);
+
+    private static final int URI_CATEGORIAS = 100;
+    private static final int URI_ID_CATEGORIA = 101;
+    private static final int URI_LIVROS = 200;
+    private static final int URI_ID_LIVRO = 201;
+    private static final String CURSOR_DIR = "vnd.android.cursor.dir/";
+    private static final String CURSOR_ITEM = "vnd.android.cursor.item/";
 
     private BdLivrosOpenHelper openHelper;
 
