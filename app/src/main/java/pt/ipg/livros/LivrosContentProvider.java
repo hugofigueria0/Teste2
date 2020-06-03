@@ -13,16 +13,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class LivrosContentProvider extends ContentProvider {
+    public static final String AUTHORITY = "pt.ipg.livros";
+    public static final String CATEGORIAS = "categorias";
+    public static final String LIVROS = "livros";
+
+    public static final int URI_CATEGORIAS = 100;
+    public static final int URI_ID_CATEGORIA = 101;
+    public static final int URI_LIVROS = 200;
+    public static final int URI_ID_LIVRO = 201;
+
     private BdLivrosOpenHelper openHelper;
 
-    private UriMatcher getUriMAcher(){
+    private UriMatcher getUriMatcher(){
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        // exemplos de enderessos validos
-        //content://com.example.livros/livros
-        //content://com.example.livros/livros/4
-        //content://com.example.livros/categoria
-        //content://com.example.livros/categoria/3
+        uriMatcher.addURI(AUTHORITY, CATEGORIAS, URI_CATEGORIAS);
+        uriMatcher.addURI(AUTHORITY, CATEGORIAS + "/#", URI_ID_CATEGORIA);
+
+        uriMatcher.addURI(AUTHORITY, LIVROS, URI_LIVROS);
+        uriMatcher.addURI(AUTHORITY, LIVROS + "/#", URI_ID_LIVRO);
+
         return uriMatcher;
     }
 
