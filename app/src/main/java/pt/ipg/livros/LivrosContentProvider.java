@@ -21,6 +21,8 @@ public class LivrosContentProvider extends ContentProvider {
     public static final int URI_ID_CATEGORIA = 101;
     public static final int URI_LIVROS = 200;
     public static final int URI_ID_LIVRO = 201;
+    public static final String CURSOR_DIR = "vnd.android.cursor.dir/";
+    public static final String CURSOR_ITEM = "vnd.android.cursor.item/";
 
     private BdLivrosOpenHelper openHelper;
 
@@ -155,7 +157,20 @@ public class LivrosContentProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        return null;
+        int codigoUri = getUriMatcher().match(uri);
+
+        switch (codigoUri) {
+            case URI_CATEGORIAS:
+                return CURSOR_DIR + CATEGORIAS;
+            case URI_ID_CATEGORIA:
+                return CURSOR_ITEM + CATEGORIAS;
+            case URI_LIVROS:
+                return CURSOR_DIR + LIVROS;
+            case URI_ID_LIVRO:
+                return CURSOR_ITEM + LIVROS;
+            default:
+                return null;
+        }
     }
 
     /**
