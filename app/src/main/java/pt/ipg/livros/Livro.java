@@ -4,6 +4,7 @@ class Livro {
     private long id = -1;
     private String titulo;
     private long idCategoria = -1;
+    private String categoria = null;
 
     public long getId() {
         return id;
@@ -27,5 +28,13 @@ class Livro {
 
     public void setIdCategoria(long idCategoria) {
         this.idCategoria = idCategoria;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }
