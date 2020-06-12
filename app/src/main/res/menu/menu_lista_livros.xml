@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="pt.ipg.livros.MainActivity">
     <item
-        android:id="@+id/acion_inserir_livro"
+        android:id="@+id/action_inserir_livro"
         android:icon="@drawable/ic_baseline_add_24"
         android:orderInCategory="100"
         android:title="Inserir"

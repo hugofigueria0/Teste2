@@ -4,11 +4,18 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
+    private Fragment fragmentActual = null;
+
+    public void setFragmentActual(Fragment fragmentActual) {
+        this.fragmentActual = fragmentActual;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.action_inserir_livro) {
+            ((ListaLivrosFragment) fragmentActual).novoLivro();
+            return true;
+        } else if (id == R.id.action_alterar_livro) {
+            ((ListaLivrosFragment) fragmentActual).alteraLivro();
+            return true;
+        } else if (id == R.id.action_eliminar_livro) {
+            // todo: eliminar livro
             return true;
         }
 

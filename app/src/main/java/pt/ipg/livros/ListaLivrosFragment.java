@@ -40,6 +40,9 @@ public class ListaLivrosFragment extends Fragment implements LoaderManager.Loade
 
         Context context = getContext();
 
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setFragmentActual(this);
+
         RecyclerView recyclerViewLivros = (RecyclerView) view.findViewById(R.id.recyclerViewLivros);
         adaptadorLivros = new AdaptadorLivros(context);
         recyclerViewLivros.setAdapter(adaptadorLivros);
@@ -50,12 +53,12 @@ public class ListaLivrosFragment extends Fragment implements LoaderManager.Loade
         LoaderManager.getInstance(this).initLoader(ID_CURSOR_LOADER_LIVROS, null, this);
     }
 
-    private void alteraLivro() {
+    public void alteraLivro() {
         NavController navController = NavHostFragment.findNavController(ListaLivrosFragment.this);
         navController.navigate(R.id.action_alterar_livro);
     }
 
-    private void novoLivro() {
+    public void novoLivro() {
         NavController navController = NavHostFragment.findNavController(ListaLivrosFragment.this);
         navController.navigate(R.id.action_novo_livro);
     }
