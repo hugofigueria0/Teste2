@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,9 +20,12 @@ import androidx.loader.content.Loader;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.loader.content.CursorLoader;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class AdicionarLivroFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final int ID_CURSOR_LOADER_CATEGORIAS = 0;
+    private EditText editTextTitulo;
+    private Spinner spinnerCategoria;
 
     @Override
     public View onCreateView(
@@ -38,6 +44,11 @@ public class AdicionarLivroFragment extends Fragment implements LoaderManager.Lo
         MainActivity activity = (MainActivity) getActivity();
         activity.setFragmentActual(this);
         activity.setMenuActual(R.menu.menu_inserir_livro);
+
+        editTextTitulo = (EditText) view.findViewById(R.id.editTextTitulo);
+        spinnerCategoria = (Spinner) view.findViewById(R.id.spinnerCategoria);
+
+        mostraDadosSpinnerCategorias(null);
 
         LoaderManager.getInstance(this).initLoader(ID_CURSOR_LOADER_CATEGORIAS, null, this);
     }
@@ -108,7 +119,7 @@ public class AdicionarLivroFragment extends Fragment implements LoaderManager.Lo
      */
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-
+        mostraDadosSpinnerCategorias(data);
     }
 
     /**
@@ -122,6 +133,18 @@ public class AdicionarLivroFragment extends Fragment implements LoaderManager.Lo
      */
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        mostraDadosSpinnerCategorias(null);
+    }
 
+    private void mostraDadosSpinnerCategorias(Cursor data) {
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+                getContext(),
+                android.R.layout.simple_list_item_1,
+                data,
+                new String[]{BdTableCategorias.CAMPO_DESCRICAO},
+                new int[]{android.R.id.text1}
+        );
+
+        spinnerCategoria.setAdapter(adapter);
     }
 }
