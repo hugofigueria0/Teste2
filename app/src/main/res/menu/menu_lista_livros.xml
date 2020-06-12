@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="pt.ipg.livros.MainActivity">
+    <item
+        android:id="@+id/acion_inserir_livro"
+        android:icon="@drawable/ic_baseline_add_24"
+        android:orderInCategory="100"
+        android:title="Inserir"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_alterar_livro"
+        android:icon="@drawable/ic_baseline_edit_24"
+        android:orderInCategory="101"
+        android:title="Alterar"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_eliminar_livro"
+        android:icon="@drawable/ic_baseline_delete_24"
+        android:orderInCategory="102"
+        android:title="Eliminar"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="103"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+</menu>
