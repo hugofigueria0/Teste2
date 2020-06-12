@@ -1,5 +1,6 @@
 package pt.ipg.livros;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,12 @@ public class AdicionarLivroFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Context context = getContext();
+
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setFragmentActual(this);
+        activity.setMenuActual(R.menu.menu_inserir_livro);
+
         view.findViewById(R.id.buttonCancelar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,8 +39,11 @@ public class AdicionarLivroFragment extends Fragment {
         });
     }
 
-    private void cancelar() {
+    public void cancelar() {
         NavController navController = NavHostFragment.findNavController(AdicionarLivroFragment.this);
         navController.navigate(R.id.action_NovoLivro_to_ListaLivros);
+    }
+
+    public void guardar() {
     }
 }
