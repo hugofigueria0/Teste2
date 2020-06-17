@@ -10,6 +10,7 @@ import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.loader.content.CursorLoader;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 public class AdicionarLivroFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final int ID_CURSOR_LOADER_CATEGORIAS = 0;
@@ -59,6 +63,28 @@ public class AdicionarLivroFragment extends Fragment implements LoaderManager.Lo
     }
 
     public void guardar() {
+        String titulo = editTextTitulo.getText().toString();
+
+        if (titulo.length() == 0) {
+            editTextTitulo.setError("Preencha o título");
+            editTextTitulo.requestFocus();
+            return;
+        }
+
+        long idCategoria = spinnerCategoria.getSelectedItemId();
+
+        Livro livro = new Livro();
+        livro.setTitulo(titulo);
+        livro.setIdCategoria(idCategoria);
+
+        try {
+            getActivity().getContentResolver().insert(LivrosContentProvider.ENDERECO_LIVROS, Converte.livroToContentValues(livro));
+            Toast.makeText(getContext(), "Livro adicionado com sucesso", Toast.LENGTH_SHORT).show();
+            NavController navController = NavHostFragment.findNavController(AdicionarLivroFragment.this);
+            navController.navigate(R.id.action_NovoLivro_to_ListaLivros);
+        } catch (Exception e) {
+            Snackbar.make(editTextTitulo, "Erro: Não foi possível criar o livro", Snackbar.LENGTH_INDEFINITE).show();
+        }
     }
 
     /**
