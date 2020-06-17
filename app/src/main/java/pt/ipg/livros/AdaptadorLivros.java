@@ -95,6 +95,12 @@ class AdaptadorLivros extends RecyclerView.Adapter<AdaptadorLivros.ViewHolderLiv
         return cursor.getCount();
     }
 
+    public Livro getLivroSelecionado() {
+        if (viewHolderLivroSelecionado == null) return null;
+
+        return viewHolderLivroSelecionado.livro;
+    }
+
     private ViewHolderLivro viewHolderLivroSelecionado = null;
 
     public class ViewHolderLivro extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -136,6 +142,9 @@ class AdaptadorLivros extends RecyclerView.Adapter<AdaptadorLivros.ViewHolderLiv
 
             viewHolderLivroSelecionado = this;
             seleciona();
+
+            MainActivity activity = (MainActivity) AdaptadorLivros.this.context;
+            activity.atualizaOpcoesMenuListaLivros();
         }
 
         private void seleciona() {

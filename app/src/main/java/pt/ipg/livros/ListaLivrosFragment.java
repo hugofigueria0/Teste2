@@ -26,6 +26,10 @@ public class ListaLivrosFragment extends Fragment implements LoaderManager.Loade
 
     private AdaptadorLivros adaptadorLivros;
 
+    public Livro getLivroSelecionado() {
+        return adaptadorLivros.getLivroSelecionado();
+    }
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,

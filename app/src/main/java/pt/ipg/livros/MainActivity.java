@@ -12,6 +12,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
     private Fragment fragmentActual = null;
     private int menuActual = R.menu.menu_lista_livros;
+    private Menu menu;
 
     public void setFragmentActual(Fragment fragmentActual) {
         this.fragmentActual = fragmentActual;
@@ -32,10 +33,24 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    public void atualizaOpcoesMenuListaLivros() {
+        ListaLivrosFragment listaLivrosFragment = (ListaLivrosFragment) fragmentActual;
+
+        Livro livro = listaLivrosFragment.getLivroSelecionado();
+
+        boolean mostraEditarEliminar = (livro != null);
+
+        menu.findItem(R.id.action_alterar_livro).setVisible(mostraEditarEliminar);
+        menu.findItem(R.id.action_eliminar_livro).setVisible(mostraEditarEliminar);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(menuActual, menu);
+
+        this.menu = menu;
+
         return true;
     }
 
