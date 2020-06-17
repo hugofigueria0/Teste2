@@ -95,7 +95,9 @@ class AdaptadorLivros extends RecyclerView.Adapter<AdaptadorLivros.ViewHolderLiv
         return cursor.getCount();
     }
 
-    public class ViewHolderLivro extends RecyclerView.ViewHolder {
+    private ViewHolderLivro viewHolderLivroSelecionado = null;
+
+    public class ViewHolderLivro extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Livro livro = null;
 
         private final TextView textViewTitulo;
@@ -106,6 +108,8 @@ class AdaptadorLivros extends RecyclerView.Adapter<AdaptadorLivros.ViewHolderLiv
 
             textViewTitulo = (TextView)itemView.findViewById(R.id.textViewTitulo);
             textViewCategoria = (TextView)itemView.findViewById(R.id.textViewCategoria);
+
+            itemView.setOnClickListener(this);
         }
 
         public void setLivro(Livro livro) {
@@ -113,6 +117,33 @@ class AdaptadorLivros extends RecyclerView.Adapter<AdaptadorLivros.ViewHolderLiv
 
             textViewTitulo.setText(livro.getTitulo());
             textViewCategoria.setText(String.valueOf(livro.getCategoria()));
+        }
+
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(View v) {
+            if (viewHolderLivroSelecionado == this) {
+                return;
+            }
+
+            if (viewHolderLivroSelecionado != null) {
+                viewHolderLivroSelecionado.desSeleciona();
+            }
+
+            viewHolderLivroSelecionado = this;
+            seleciona();
+        }
+
+        private void seleciona() {
+            itemView.setBackgroundResource(R.color.colorAccent);
+        }
+
+        private void desSeleciona() {
+            itemView.setBackgroundResource(android.R.color.white);
         }
     }
 }
