@@ -13,6 +13,11 @@ public class MainActivity extends AppCompatActivity {
     private Fragment fragmentActual = null;
     private int menuActual = R.menu.menu_lista_livros;
     private Menu menu;
+    private Livro livro = null;
+
+    public Livro getLivro() {
+        return livro;
+    }
 
     public void setFragmentActual(Fragment fragmentActual) {
         this.fragmentActual = fragmentActual;
@@ -33,10 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    public void atualizaOpcoesMenuListaLivros() {
-        ListaLivrosFragment listaLivrosFragment = (ListaLivrosFragment) fragmentActual;
-
-        Livro livro = listaLivrosFragment.getLivroSelecionado();
+    public void livroAlterado(Livro livro) {
+        this.livro = livro;
 
         boolean mostraEditarEliminar = (livro != null);
 
@@ -68,9 +71,25 @@ public class MainActivity extends AppCompatActivity {
             if (processaOpcoesMenuListaLivros(id)) return true;
         } else if (menuActual == R.menu.menu_inserir_livro) {
             if (processaOpcoesMenuInserirLivro(id)) return true;
+        } else if (menuActual == R.menu.menu_alterar_livro) {
+            if (processaOpcoesMenuAlterarLivro(id)) return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean processaOpcoesMenuAlterarLivro(int id) {
+        AlteraLivroFragment alterarLivroFragment = (AlteraLivroFragment) fragmentActual;
+
+        if (id == R.id.action_guardar) {
+            alterarLivroFragment.guardar();
+            return true;
+        } else if (id == R.id.action_cancelar) {
+            alterarLivroFragment.cancelar();
+            return true;
+        }
+
+        return false;
     }
 
     private boolean processaOpcoesMenuInserirLivro(int id) {
