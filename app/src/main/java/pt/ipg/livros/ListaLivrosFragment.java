@@ -65,6 +65,8 @@ public class ListaLivrosFragment extends Fragment implements LoaderManager.Loade
     }
 
     public void eliminaLivro() {
+        NavController navController = NavHostFragment.findNavController(ListaLivrosFragment.this);
+        navController.navigate(R.id.action_eliminar_livro);
     }
 
     /**
