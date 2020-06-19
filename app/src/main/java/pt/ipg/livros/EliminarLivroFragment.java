@@ -1,6 +1,9 @@
 package pt.ipg.livros;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,9 +15,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +59,22 @@ public class EliminarLivroFragment extends Fragment {
         textViewTitulo = (TextView) view.findViewById(R.id.textViewTitulo);
         textViewCategoria = (TextView) view.findViewById(R.id.textViewCategoria);
 
+        Button buttonEliminar = (Button) view.findViewById(R.id.buttonEliminar);
+        buttonEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eliminar();
+            }
+        });
+
+        Button buttonCancelar = (Button) view.findViewById(R.id.buttonCancelar);
+        buttonCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelar();
+            }
+        });
+
         livro = activity.getLivro();
         textViewTitulo.setText(livro.getTitulo());
         textViewCategoria.setText(livro.getCategoria());
@@ -63,6 +86,43 @@ public class EliminarLivroFragment extends Fragment {
     }
 
     public void eliminar() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
+        builder.setTitle("Eliminar Livro");
+        builder.setMessage("Tem a certeza que pretende eliminar o livro '" + livro.getTitulo() + "'");
+        builder.setIcon(R.drawable.ic_baseline_delete_24);
+        builder.setPositiveButton("Sim, eliminar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                confirmaEliminar();
+            }
+        });
+
+        builder.setNegativeButton("Não, cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // cancelar
+            }
+        });
+
+        builder.show();
+    }
+
+    private void confirmaEliminar() {
+        try {
+            Uri enderecoLivro = Uri.withAppendedPath(LivrosContentProvider.ENDERECO_LIVROS, String.valueOf(livro.getId()));
+
+            int apagados = getActivity().getContentResolver().delete(enderecoLivro, null, null);
+
+            if (apagados == 1) {
+                Toast.makeText(getContext(), "Livro eliminado com sucesso", Toast.LENGTH_SHORT).show();
+                NavController navController = NavHostFragment.findNavController(EliminarLivroFragment.this);
+                navController.navigate(R.id.action_eliminarLivroFragment_to_ListaLivrosFragment);
+                return;
+            }
+        } catch (Exception e) {
+        }
+
+        Snackbar.make(textViewTitulo, "Erro: Não foi possível eliminar o livro", Snackbar.LENGTH_INDEFINITE).show();
     }
 }

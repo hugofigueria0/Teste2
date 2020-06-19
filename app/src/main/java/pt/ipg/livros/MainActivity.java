@@ -73,9 +73,22 @@ public class MainActivity extends AppCompatActivity {
             if (processaOpcoesMenuInserirLivro(id)) return true;
         } else if (menuActual == R.menu.menu_alterar_livro) {
             if (processaOpcoesMenuAlterarLivro(id)) return true;
+        } else if (menuActual == R.menu.menu_eliminar_livro) {
+            if (processaOpcoesMenuEliminarLivro(id)) return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean processaOpcoesMenuEliminarLivro(int id) {
+        EliminarLivroFragment eliminarLivroFragment = (EliminarLivroFragment) fragmentActual;
+
+        if (id == R.id.action_cancelar) {
+            eliminarLivroFragment.cancelar();
+            return true;
+        }
+
+        return false;
     }
 
     private boolean processaOpcoesMenuAlterarLivro(int id) {
