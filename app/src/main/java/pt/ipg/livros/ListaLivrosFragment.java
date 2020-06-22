@@ -52,6 +52,7 @@ public class ListaLivrosFragment extends Fragment implements LoaderManager.Loade
         adaptadorLivros.setCursor(null);
 
         LoaderManager.getInstance(this).initLoader(ID_CURSOR_LOADER_LIVROS, null, this);
+
     }
 
     public void alteraLivro() {

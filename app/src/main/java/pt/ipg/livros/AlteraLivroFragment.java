@@ -27,11 +27,6 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AlteraLivroFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AlteraLivroFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     public static final int ID_CURSOR_LOADER_CATEGORIAS = 0;
 
